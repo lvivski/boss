@@ -1,4 +1,5 @@
-var Lexer = require('./lib/lexer');
+var Lexer = require('./lib/lexer'),
+    nodes = require('./lib/nodes');
 
 var css = '\
 .boxed-group \n\
@@ -13,7 +14,8 @@ var css = '\
 \n'
 
 try {
-    console.log(new Lexer(css).tokenize());
+    console.log(new Lexer(css).tokenize())
+    console.log((new nodes.Dimension(500, 'ms')).operate('+', new nodes.Dimension(3, 's')))
 } catch (e) {
     console.log(e.stack)
 }
