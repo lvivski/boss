@@ -1,6 +1,6 @@
-var Lexer = require('./lib/lexer')
-  , Rewriter = require('./lib/rewriter')
+var Parser = require('./lib/parser')
   , nodes = require('./lib/nodes')
+  , inspect = require('util').inspect
 
 var css = '\
 @-webkit-keyframes \'sdf\'\n\
@@ -30,7 +30,10 @@ sdfsdf\n\
 \n'
 
 try {
-    console.log(new Lexer(css).tokenize())
+    var parser = new Parser(css);
+    var ast = parser.parse();
+
+    console.log(inspect(ast, false, null))
 } catch (e) {
     console.log(e.stack)
 }
