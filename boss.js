@@ -13,7 +13,7 @@ block\n\
     padding 0px 2em + 10% 0px -2px\n\
     background url(some/image/url.png), #fff\n\
     &:elem-mod(value)\n\
-      color #fff\n\
+      color #ffffff\n\
   &:hover\n\
     color red\n\
 \n'
