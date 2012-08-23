@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+
+var fs = require('fs')
+  , bemss = require('../lib/bemss')
+  , basename = require('path').basename
+  , join = require('path').join
+  , args = process.argv.slice(1)
+  , options = {
+      filename: 'stdin'
+    , compress: false
+    , paths: process.cwd()
+  }
+
+var files = []
+
+var help = [
+    ''
+  , '  Usage: bemss [options] [< in [> out]]'
+  , '                [file|dir ...]'
+  , ''
+  , '  Options:'
+  , ''
+  , '    -o, --out <dir>         Output to <dir> when passing files'
+  , '    -c, --compress          Compress css output'
+  , '    -v, --version           Display the version of stylus'
+  , '    -h, --help              Display help information'
+  , ''
+].join('\n');
+
+var arg
+while (args.length) {
+  arg = args.shift()
+  switch (arg) {
+    case '-h':
+    case '--help':
+      console.error(help)
+      process.exit(1)
+    case '-c':
+    case '--compress':
+      options.compress = true
+      break;
+    case '-v':
+    case '--version':
+      console.log(bemss.version)
+      process.exit(0)
+      break
+    case '-o':
+    case '--out':
+      dest = args.shift()
+      if (!dest) throw new Error('--out <dir> required')
+      break;
+    default:
+      if (arg[0] == '-') {
+        console.error(help)
+        process.exit(1)
+      } else {
+        files.push(arg)
+      }
+  }
+}
+
+try {
+  compileFiles(files)
+} catch (err) {
+  console.error(err)
+}
+
+function compileFiles(files) {
+  files.forEach(compileFile)
+}
+
+function compileFile(file) {
+  fs.lstat(file, function(err, stat){
+    if (err) {
+      if (err.code !== 'ENOENT')
+        throw err
+      console.error("File not found: " + file);
+      console.error(help)
+      process.exit(1);
+    }
+    if (stat.isFile()) {
+      fs.readFile(file, 'utf8', function(err, str){
+        if (err) {
+          if (err.code !== 'ENOENT')
+            throw err
+          return
+        }
+        options.filename = file
+        bemss.render(str, options, function(err, css){
+          if (err) {
+            throw err
+          } else {
+            writeFile(file, css)
+          }
+        })
+      })
+    } else if (stat.isDirectory()) {
+      fs.readdir(file, function(err, files){
+        if (err) throw err
+        files.filter(function(path){
+          return path.match(/\.bemss$/)
+        }).map(function(path){
+          return join(file, path)
+        }).forEach(compileFile)
+      })
+    }
+  })
+}
+
+function writeFile(file, css) {
+  var path = dest
+    ? join(dest, basename(file, '.bemss') + '.css')
+    : file.replace('.bemss', '.css');
+  fs.writeFile(path, css, function(err){
+    if (err) throw err
+    console.log('  \033[90mcompiled\033[0m %s', path)
+  })
+}
