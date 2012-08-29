@@ -113,12 +113,42 @@ function compileFile(file) {
   })
 }
 
+/* Terminal Colors
+
+\033[MODIFICATOR;COLORm
+
+COLORS
+
+0        - Reset
+
+30       - Black
+31       - Red
+32       - Green
+33       - Yellow
+34       - Blue
+35       - Purple
+36       - Cyan
+37       - White
+
+10+COLOR - Background
+
+60+COLOR - High Intensity
+
+70+COLOR - High Intensity backgrounds
+
+MODIFICATORS
+
+0        - Regular
+1        - Bold
+4        - Underline
+
+*/
 function writeFile(file, css) {
   var path = dest
     ? join(dest, basename(file, '.bemss') + '.css')
     : file.replace('.bemss', '.css')
   fs.writeFile(path, css, function(err){
     if (err) throw err
-    console.log('  \033[90mcompiled\033[0m %s', path)
+    console.log('  \033[32mcompiled\033[0m %s', path)
   })
 }
