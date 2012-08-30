@@ -149,6 +149,6 @@ function writeFile(file, css) {
     : file.replace('.bemss', '.css')
   fs.writeFile(path, css, function(err){
     if (err) throw err
-    console.log('  \033[32mcompiled\033[0m %s', path)
+    console.log('  \033[1;32m✔\033[0m %s', path)
   })
 }
