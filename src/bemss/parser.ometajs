@@ -1,8 +1,14 @@
+var CSSParser = require('../css/parser').CSSParser;
+
 ometa BEMSSParser <: CSSParser {
 
   statement = definition | ruleset | atrule | assignment,
 
-  definition = funktion:fn sc block:b -> [#definition, fn, b],
+  definition = ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
+
+  variable = '$' ident:x -> [#variable, x],
+
+  property = (ident | variable):x sc*:s0 -> CSSParser.concat([#property, x], s0),
 
   assignment = property:p '=' value:v decldelim? -> [#assignment, p, v],
 
@@ -11,10 +17,10 @@ ometa BEMSSParser <: CSSParser {
   unary = ('-' | '+'):op primary:x -> [#unary, op, x]
         | primary,
 
-  multiplicative = multiplicative:x s+ ('*' | '/' | '%'):op s+ unary:y -> [#binary, op, x, y]
+  multiplicative = multiplicative:x s+ ('*' | '/' | '%'):op s+ unary:y -> [#binary, [#operator, op], x, y]
                  | unary,
 
-  additive = additive:x s+ ('+' | '-'):op s+ multiplicative:y -> [#binary, op, x, y]
+  additive = additive:x s+ ('+' | '-'):op s+ multiplicative:y -> [#binary, [#operator, op], x, y]
            | multiplicative,
 
   expression = additive,

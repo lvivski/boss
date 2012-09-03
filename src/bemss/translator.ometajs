@@ -1,6 +1,8 @@
-var CSSTransformer = require('../css/transformer').CSSTransformer;
+var CSSTranslator = require("../css/translator").CSSTranslator;
 
-ometa BEMSSTransformer <: CSSTransformer {
+var nodes = require("../nodes");
+
+ometa BEMSSTranslator <: CSSTranslator {
 
   any = before
       | ident
@@ -57,14 +59,24 @@ ometa BEMSSTransformer <: CSSTransformer {
       | variable
       | after,
 
-  assignment = ['assignment':t any:x any:y] -> [t, x, y],
+  assignment = ['assignment':t any:x any:y] -> new nodes.Ident(x, y),
 
-  definition = ['definition':t any:x any:y any:z] -> [t, x, y, z],
+  vhash = ['vhash':t :x] -> new nodes.Color(x),
 
-  binary = ['binary':t any:o any:x any:y] -> [t, o, x, y],
+  dimension = ['dimension':t any:x any:y] -> new nodes.Dimension(x, y),
 
-  unary = ['unary':t any:o any:x] -> [t, o, x],
+  percentage = ['percentage':t any:x] -> new nodes.Dimension(x, '%'),
 
-  variable = ['variable':t any:v] -> [t, v]
+  functionBody = ['functionBody' anys:x] -> { '' },
+
+  funktion = ['funktion':t any:x any:y] -> new nodes.Call(x, y),
+
+  definition = ['definition':t any:x any:y any:z] -> new nodes.Definition(x, y, z),
+
+  binary = ['binary':t any:o any:x any:y] -> new nodes.BinOp(o, x, y),
+
+  unary = ['unary':t any:o any:x] -> new nodes.Dimension(o + x, y),
+
+  variable = ['variable':t any:x] -> new nodes.Ident(x)
 
 }
