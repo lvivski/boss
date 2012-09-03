@@ -1,0 +1,37 @@
+border-radius = 10px;
+
+border-radius(radius) {
+  border-radius: radius;
+}
+
+.block {
+  background: -webkit-linear-gradient(left, #f6eeee 90%, #edd 60%);
+  .block_mod_value {
+      padding: 0 12px 0 0;
+  }
+  .block__elem,
+  .block:nth-child(-n+2),
+  .block::after,
+  .block .sub-block,
+  .block:mod(value) {
+    padding: 0 2.2em 0 2px;
+    background: url("some/image/url.png"), #fff;
+    -webkit-border-radius: 10px 5px;
+    -moz-border-radius: 10px 10px 1px - 5px * 10px;
+    border-radius: 10px 5px;
+  }
+}
+.block__elem_elem-mod_value {
+  color: #808080;
+  button-color: 14px;
+}
+.block:hover {
+  color: #f00;
+}
+.block .sub-block {
+  margin: 1px;
+  color: #120000;
+}
+.block .sub-block__sub-elem {
+  padding: 0;
+}

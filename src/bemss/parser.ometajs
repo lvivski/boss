@@ -1,0 +1,31 @@
+ometa BEMSSParser <: CSSParser {
+
+  statement = definition | ruleset | atrule | assignment,
+
+  definition = funktion:fn sc block:b -> [#definition, fn, b],
+
+  assignment = property:p '=' value:v decldelim? -> [#assignment, p, v],
+
+  primary = percentage | dimension | number,
+
+  unary = ('-' | '+'):op primary:x -> [#unary, op, x]
+        | primary,
+
+  multiplicative = multiplicative:x s+ ('*' | '/' | '%'):op s+ unary:y -> [#binary, op, x, y]
+                 | unary,
+
+  additive = additive:x s+ ('+' | '-'):op s+ multiplicative:y -> [#binary, op, x, y]
+           | multiplicative,
+
+  expression = additive,
+
+  nthselector = nthf:x '(' (sc | ('+' | '-'):op -> [#operator, op] | nth)*:y ')' -> [#nthselector, [#ident, x]].concat(y),
+
+  blockdecl = sc*:s0 (filter | declaration):x decldelim:y sc*:s1 -> CSSParser.concat(s0, [x], [y], s1)
+            | sc*:s0 (filter | declaration):x sc*:s1 -> CSSParser.concat(s0, [x], s1)
+            | sc*:s0 decldelim:x sc*:s1 -> CSSParser.concat(s0, [x], s1)
+            | sc*:s0 ruleset:x sc*:s1 -> CSSParser.concat(s0, [x], s1)
+            | sc+:s0 -> s0,
+
+  any = braces | string | expression | ident | uri | functionExpression | funktion
+}

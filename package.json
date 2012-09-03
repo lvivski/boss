@@ -1,0 +1,17 @@
+{
+  "name": "bemss"
+, "version": "0.0.1"
+, "author": "Yehor Lvivski <lvivski@gmail.com>"
+, "main": "./lib/bemss.js"
+, "directories": {
+    "lib": "./lib"
+  }
+, "bin": {
+    "bemss": "./bin/bemss"
+  }
+, "dependencies" : {
+    "coa": "*"
+  , "ometajs" : "*"
+  , "q": "*"
+  }
+}

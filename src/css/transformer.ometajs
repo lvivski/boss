@@ -1,0 +1,152 @@
+ometa CSSTransformer {
+    anys = any*,
+    before = [],
+    after = [],
+
+    any = before
+        | ident
+        | atkeyword
+        | string
+        | shash
+        | vhash
+        | number
+        | percentage
+        | dimension
+        | cdo
+        | cdc
+        | decldelim
+        | s
+        | attrselector
+        | attrib
+        | nth
+        | nthselector
+        | namespace
+        | clazz
+        | pseudoe
+        | pseudoc
+        | delim
+        | stylesheet
+        | atruleb
+        | atrules
+        | atrulerq
+        | atrulers
+        | atruler
+        | block
+        | ruleset
+        | combinator
+        | simpleselector
+        | selector
+        | declaration
+        | property
+        | important
+        | unary
+        | operator
+        | braces
+        | value
+        | progid
+        | filterv
+        | filter
+        | comment
+        | uri
+        | raw
+        | functionBody
+        | funktion
+        | functionExpression
+        | after,
+
+    ident = ['ident':t :x] -> [t, x],
+
+    atkeyword = ['atkeyword':t any:x] -> [t, x],
+
+    string = ['string':t :x] -> [t, x],
+
+    shash = ['shash':t :x] -> [t, x],
+
+    vhash = ['vhash':t :x] -> [t, x],
+
+    number = ['number':t :x] -> [t, x],
+
+    percentage = ['percentage':t any:x] -> [t, x],
+
+    dimension = ['dimension':t any:x any:y] -> [t, x, y],
+
+    cdo = ['cdo':t] -> [t],
+
+    cdc = ['cdc':t] -> [t],
+
+    decldelim = ['decldelim':t] -> [t],
+
+    s = ['s':t :x] -> [t, x],
+
+    attrselector = ['attrselector':t :x] -> [t, x],
+
+    attrib = ['attrib':t anys:x] -> [t].concat(x),
+
+    nth = ['nth':t :x] -> [t, x],
+
+    nthselector = ['nthselector':t any:x anys:y] -> [t, x].concat(y),
+
+    namespace = ['namespace':t] -> [t],
+
+    clazz = ['clazz':t :x] -> [t, x],
+
+    pseudoe = ['pseudoe':t :x] -> [t, x],
+
+    pseudoc = ['pseudoc':t :x] -> [t, x],
+
+    delim = ['delim':t] -> [t],
+
+    stylesheet = ['stylesheet':t anys:x] -> [t].concat(x),
+
+    atruleb = ['atruleb':t anys:x] -> [t].concat(x),
+
+    atrules = ['atrules':t anys:x] -> [t].concat(x),
+
+    atrulerq = ['atrulerq':t anys:x] -> [t].concat(x),
+
+    atrulers = ['atrulers':t anys:x] -> [t].concat(x),
+
+    atruler = ['atruler':t anys:x] -> [t].concat(x),
+
+    block = ['block':t anys:x] -> [t].concat(x),
+
+    ruleset = ['ruleset':t anys:x] -> [t].concat(x),
+
+    combinator = ['combinator':t :x] -> [t, x],
+
+    simpleselector = ['simpleselector':t anys:x] -> [t].concat(x),
+
+    selector = ['selector':t anys:x] -> [t].concat(x),
+
+    declaration = ['declaration':t any:p any:v] -> [t, p, v],
+
+    property = ['property':t anys:x] -> [t].concat(x),
+
+    important = ['important':t anys:x] -> [t].concat(x),
+
+    unary = ['unary':t :x] -> [t, x],
+
+    operator = ['operator':t :x] -> [t, x],
+
+    braces = ['braces':t :x :y anys:z] -> [t, x, y].concat(z),
+
+    value = ['value':t anys:x] -> [t].concat(x),
+
+    progid = ['progid':t anys:x] -> [t].concat(x),
+
+    filterv = ['filterv':t anys:x] -> [t].concat(x),
+
+    filter = ['filter':t any:p any:v] -> [t, p, v],
+
+    comment = ['comment':t :x] -> [t, x],
+
+    uri = ['uri':t anys:x] -> [t].concat(x),
+
+    raw = ['raw':t :x] -> [t, x],
+
+    functionBody = ['functionBody':t anys:x] -> [t].concat(x),
+
+    funktion = ['funktion':t any:x any:y] -> [t, x, y],
+
+    functionExpression = ['functionExpression':t :x] -> [t, x]
+}

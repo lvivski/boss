@@ -1,0 +1,65 @@
+ometa BEMSSTransformer <: CSSTransformer {
+
+  any = before
+        | ident
+        | atkeyword
+        | string
+        | shash
+        | vhash
+        | number
+        | percentage
+        | dimension
+        | cdo
+        | cdc
+        | decldelim
+        | s
+        | attrselector
+        | attrib
+        | nth
+        | nthselector
+        | namespace
+        | clazz
+        | pseudoe
+        | pseudoc
+        | delim
+        | stylesheet
+        | atruleb
+        | atrules
+        | atrulerq
+        | atrulers
+        | atruler
+        | block
+        | ruleset
+        | combinator
+        | simpleselector
+        | selector
+        | declaration
+        | property
+        | important
+        | binary
+        | unary
+        | operator
+        | braces
+        | value
+        | progid
+        | filterv
+        | filter
+        | comment
+        | uri
+        | raw
+        | functionBody
+        | funktion
+        | functionExpression
+        | definition
+        | assignment
+        | after,
+
+  assignment = ['assignment':t any:x any:y] -> [t, x, y],
+
+  definition = ['definition':t any:x any:y] -> [t, x, y],
+
+  binary = ['binary':t :o any:x any:y] -> [t, o, x, y],
+
+  unary = ['unary':t any:o any:x] -> [t, o, x]
+
+}
