@@ -88,6 +88,8 @@ Output:
 
 ### Usage
 ```bash
+$ git clone git://github.com/lvivski/boss.git
+$ cd boss
 $ bin/boss --help
 
 Usage:
