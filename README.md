@@ -21,9 +21,9 @@ Input:
 button-color = saturate(#401010, 10);
 
 border-radius(radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  border-radius: $radius;
+  -webkit-border-radius: radius;
+  -moz-border-radius: radius;
+  border-radius: radius;
 }
 
 background-gradient(start, stop) {
