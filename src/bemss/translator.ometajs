@@ -59,24 +59,88 @@ ometa BEMSSTranslator <: CSSTranslator {
       | variable
       | after,
 
-  assignment = ['assignment':t any:x any:y] -> new nodes.Ident(x, y),
+  assignment = ['assignment' any:x any:y] -> new nodes.Ident(x.trim(), y),
 
-  vhash = ['vhash':t :x] -> new nodes.Color(x),
+  clazz = ['clazz' any:x] -> new nodes.Literal('.' + x),
 
-  dimension = ['dimension':t any:x any:y] -> new nodes.Dimension(x, y),
+  vhash = ['vhash' :x] -> new nodes.Color(x),
 
-  percentage = ['percentage':t any:x] -> new nodes.Dimension(x, '%'),
+  dimension = ['dimension' any:x any:y] -> new nodes.Dimension(x, y),
 
-  functionBody = ['functionBody' anys:x] -> { '' },
+  percentage = ['percentage' any:x] -> new nodes.Dimension(x, '%'),
 
-  funktion = ['funktion':t any:x any:y] -> new nodes.Call(x, y),
+  number = ['number' :x] -> new nodes.Dimension(x),
 
-  definition = ['definition':t any:x any:y any:z] -> new nodes.Definition(x, y, z),
+  funktion = ['funktion' any:x any:y] -> new nodes.Call(x, y),
 
-  binary = ['binary':t any:o any:x any:y] -> new nodes.BinOp(o, x, y),
+  definition = ['definition' any:x any:y any:z] -> new nodes.Definition(x, y, z),
 
-  unary = ['unary':t any:o any:x] -> new nodes.Dimension(o + x, y),
+  binary = ['binary' any:o any:x any:y] -> new nodes.BinOp(o, x, y),
 
-  variable = ['variable':t any:x] -> new nodes.Ident(x)
+  unary = ['unary' any:o any:x] -> new nodes.Dimension(o + x, y),
+
+  variable = ['variable' any:x] -> x,
+
+  comment = ['comment' :x] -> new nodes.Comment(x),
+
+  string = ['string' :x :y] -> new nodes.String(x, y),
+
+  raw = ['raw' :x] -> new nodes.String(x),
+
+  uri = ['uri' any:x] -> new nodes.Call('url', new nodes.Arguments(false, [x])),
+
+  stylesheet = ['stylesheet' anys:x] -> new nodes.Stylesheet(x),
+
+  block = ['block' anys:x] -> new nodes.Block(x),
+
+  declaration = ['declaration' any:x any:y] -> new nodes.Declaration(x, y),
+
+  simpleselector = ['simpleselector' anys:x] -> new nodes.Selector(x.join('')),
+
+  selector = ['selector' anys:x] -> x.filter(function (selector) { return selector !== ',' }),
+
+  ruleset = ['ruleset' any:x any:y] -> new nodes.Ruleset(x, y),
+
+  ident = ['ident' :x] -> new nodes.Ident(x),
+
+  pseudoc = ['pseudoc' any:x] -> (':' + x),
+
+  value = ['value' anys:x] -> { var expr = new nodes.Expression,
+                                    list;
+                                x.forEach(function (node) {
+                                  if (node === ' ') return;
+                                  if (node === ',') {
+                                    list = list || new nodes.Expression(true)
+                                    list.push(expr)
+                                    expr = new nodes.Expression
+                                    return;
+                                  }
+                                  expr.push(node);
+                                })
+
+                                list && list.push(expr);
+
+                                list || expr;
+                              },
+
+  functionBody = ['functionBody' anys:x] -> {
+                                              var args = new nodes.Arguments,
+                                                  list;
+
+                                              x.forEach(function (node) {
+                                                if (node === ' ') return;
+                                                if (node === ',') {
+                                                  list = list || new nodes.Arguments(true)
+                                                  list.push(new nodes.Expression(false, args.nodes))
+                                                  args = new nodes.Expression
+                                                  return;
+                                                }
+                                                args.push(node);
+                                              })
+
+                                              list && list.push(args);
+
+                                              list || args;
+                                            },
 
 }

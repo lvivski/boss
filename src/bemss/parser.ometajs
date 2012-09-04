@@ -4,9 +4,15 @@ ometa BEMSSParser <: CSSParser {
 
   statement = definition | ruleset | atrule | assignment,
 
-  definition = ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
+  stylesheet = (cdo | cdc | statement)*:x -> CSSParser.concat([#stylesheet], x),
+
+  definition = sc* ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
+
+  string = m_string:x -> [#string, x[0], x.slice(1, -1)],
 
   variable = '$' ident:x -> [#variable, x],
+
+  combinator = ('+' | '>' | '~' | '&'):x -> [#combinator, x],
 
   property = (ident | variable):x sc*:s0 -> CSSParser.concat([#property, x], s0),
 
@@ -27,11 +33,13 @@ ometa BEMSSParser <: CSSParser {
 
   nthselector = nthf:x '(' (sc | ('+' | '-'):op -> [#operator, op] | nth)*:y ')' -> [#nthselector, [#ident, x]].concat(y),
 
-  blockdecl = sc*:s0 (filter | declaration):x decldelim:y sc*:s1 -> CSSParser.concat(s0, [x], [y], s1)
-            | sc*:s0 (filter | declaration):x sc*:s1 -> CSSParser.concat(s0, [x], s1)
-            | sc*:s0 decldelim:x sc*:s1 -> CSSParser.concat(s0, [x], s1)
-            | sc*:s0 ruleset:x sc*:s1 -> CSSParser.concat(s0, [x], s1)
-            | sc+:s0 -> s0,
+  blockdecl = sc* (filter | declaration):x decldelim? sc* -> [x]
+            | sc* decldelim:x sc*
+            | sc* ruleset:x sc* -> [x]
+            | sc+,
 
-  any = braces | string | expression | ident | uri | functionExpression | funktion
+  uri = seq('url(') sc* string:x sc* ')' -> CSSParser.concat([#uri], [x])
+        | seq('url(') sc* (~')' ~m_w char)*:x sc* ')' -> CSSParser.concat([#uri], [[#raw, x.join('')]]),
+
+  any = braces | string | expression | uri | functionExpression | funktion | ident | variable
 }

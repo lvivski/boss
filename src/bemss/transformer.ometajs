@@ -63,8 +63,12 @@ ometa BEMSSTransformer <: CSSTransformer {
 
   binary = ['binary':t any:o any:x any:y] -> [t, o, x, y],
 
+  ruleset = ['ruleset':t any:x any:y] -> [t, x, y],
+
   unary = ['unary':t any:o any:x] -> [t, o, x],
 
-  variable = ['variable':t any:v] -> [t, v]
+  variable = ['variable':t any:v] -> [t, v],
+
+  string = ['string':t :x :y] -> [#string, y, x]
 
 }
