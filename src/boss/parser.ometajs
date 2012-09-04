@@ -14,19 +14,19 @@ ometa BOSSParser <: CSSParser {
 
   combinator = ('+' | '>' | '~' | '&'):x -> [#combinator, x],
 
-  property = (ident | variable):x sc*:s0 -> CSSParser.concat([#property, x], s0),
+  property = (ident | variable):x sc* -> [#property, x],
 
-  assignment = property:p '=' value:v decldelim? -> [#assignment, p, v],
+  assignment = property:p '=' value:v decldelim? sc* -> [#assignment, p, v],
 
   primary = percentage | dimension | number,
 
   unary = ('-' | '+'):op primary:x -> [#unary, op, x]
         | primary,
 
-  multiplicative = multiplicative:x s+ ('*' | '/' | '%'):op s+ unary:y -> [#binary, [#operator, op], x, y]
+  multiplicative = multiplicative:x sc+ ('*' | '/' | '%'):op sc+ unary:y -> [#binary, [#operator, op], x, y]
                  | unary,
 
-  additive = additive:x s+ ('+' | '-'):op s+ multiplicative:y -> [#binary, [#operator, op], x, y]
+  additive = additive:x sc+ ('+' | '-'):op sc+ multiplicative:y -> [#binary, [#operator, op], x, y]
            | multiplicative,
 
   expression = additive,
@@ -34,8 +34,8 @@ ometa BOSSParser <: CSSParser {
   nthselector = nthf:x '(' (sc | ('+' | '-'):op -> [#operator, op] | nth)*:y ')' -> [#nthselector, [#ident, x]].concat(y),
 
   blockdecl = sc* (filter | declaration):x decldelim? sc* -> [x]
-            | sc* decldelim:x sc*
             | sc* ruleset:x sc* -> [x]
+            | sc* decldelim sc*
             | sc+,
 
   uri = seq('url(') sc* string:x sc* ')' -> CSSParser.concat([#uri], [x])

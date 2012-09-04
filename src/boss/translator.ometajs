@@ -105,42 +105,29 @@ ometa BOSSTranslator <: CSSTranslator {
 
   pseudoc = ['pseudoc' any:x] -> (':' + x),
 
-  value = ['value' anys:x] -> { var expr = new nodes.Expression,
-                                    list;
-                                x.forEach(function (node) {
-                                  if (node === ' ') return;
-                                  if (node === ',') {
-                                    list = list || new nodes.Expression(true)
-                                    list.push(expr)
-                                    expr = new nodes.Expression
-                                    return;
-                                  }
-                                  expr.push(node);
-                                })
+  value = ['value' anys:x] -> createExpression(x),
 
-                                list && list.push(expr);
+  functionBody = ['functionBody' anys:x] -> createExpression(x, true),
 
-                                list || expr;
-                              },
+}
 
-  functionBody = ['functionBody' anys:x] -> {
-                                              var args = new nodes.Arguments,
-                                                  list;
+var createExpression = function (x, isArgs) {
+  var ctor = isArgs ? 'Arguments' : 'Expression',
+      expr = new nodes[ctor],
+      list;
 
-                                              x.forEach(function (node) {
-                                                if (node === ' ') return;
-                                                if (node === ',') {
-                                                  list = list || new nodes.Arguments(true)
-                                                  list.push(new nodes.Expression(false, args.nodes))
-                                                  args = new nodes.Expression
-                                                  return;
-                                                }
-                                                args.push(node);
-                                              })
+  x.forEach(function (node) {
+    if (node === ' ') return;
+    if (node === ',') {
+      list = list || new nodes[ctor](true)
+      list.push(expr)
+      expr = new nodes.Expression
+      return;
+    }
+    expr.push(node);
+  })
 
-                                              list && list.push(args);
+  list && list.push(expr);
 
-                                              list || args;
-                                            },
-
+  return list || expr;
 }
