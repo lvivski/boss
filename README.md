@@ -103,6 +103,10 @@ Options:
   -o OUTPUT, --output=OUTPUT : Output file (default: stdout)
 ```
 
+### Thanks
+
+Kristoffer Walker ([kixxauth](http://github.com/kixxauth)) for providing npm registry name
+
 ## License
 
 (The MIT License)
