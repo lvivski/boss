@@ -73,7 +73,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   funktion = ['funktion' any:x any:y] -> new nodes.Call(x, y),
 
-  definition = ['definition' any:x any:y any:z] -> new nodes.Definition(x, y, z),
+  definition = ['definition' any:x any:y any:z] -> new nodes.Definition(x.name, y, z),
 
   binary = ['binary' any:o any:x any:y] -> new nodes.BinOp(o, x, y),
 
