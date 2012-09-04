@@ -17,7 +17,7 @@ But the main feature is nested rules expanding according to [BEM](http://bem.git
 ### Example
 
 Input:
-```
+```css
 button-color = saturate(#401010, 10);
 
 border-radius(radius) {

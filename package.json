@@ -1,7 +1,12 @@
 {
   "name": "boss"
+, "description": "BEM Oriented Style Sheets"
 , "version": "0.0.1"
-, "author": "Yehor Lvivski <lvivski@gmail.com>"
+, "author": "Yehor Lvivski <lvivski@gmail.com> (http://github.com/lvivski)"
+, "repository": {
+  , "type": "git"
+  , "url": "git://github.com/lvivski/boss.git"
+  },
 , "main": "./lib/boss.js"
 , "directories": {
     "lib": "./lib"
@@ -14,4 +19,5 @@
   , "ometajs" : "*"
   , "q": "*"
   }
+, "licenses" : [ { "type" : "MIT" } ]
 }
