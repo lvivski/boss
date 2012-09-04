@@ -88,8 +88,7 @@ Output:
 
 ### Usage
 ```bash
-$ git clone git://github.com/lvivski/boss.git
-$ cd boss
+$ git clone git://github.com/lvivski/boss.git && cd boss && npm install && make
 $ bin/boss --help
 
 Usage:
