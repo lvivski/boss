@@ -1,6 +1,6 @@
 var CSSParser = require('../css/parser').CSSParser;
 
-ometa BEMSSParser <: CSSParser {
+ometa BOSSParser <: CSSParser {
 
   statement = definition | ruleset | atrule | assignment,
 

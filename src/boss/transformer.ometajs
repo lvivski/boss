@@ -1,6 +1,6 @@
 var CSSTransformer = require('../css/transformer').CSSTransformer;
 
-ometa BEMSSTransformer <: CSSTransformer {
+ometa BOSSTransformer <: CSSTransformer {
 
   any = before
       | ident

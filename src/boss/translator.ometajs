@@ -2,7 +2,7 @@ var CSSTranslator = require("../css/translator").CSSTranslator;
 
 var nodes = require("../nodes");
 
-ometa BEMSSTranslator <: CSSTranslator {
+ometa BOSSTranslator <: CSSTranslator {
 
   any = before
       | ident

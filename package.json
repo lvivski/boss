@@ -1,13 +1,13 @@
 {
-  "name": "bemss"
+  "name": "boss"
 , "version": "0.0.1"
 , "author": "Yehor Lvivski <lvivski@gmail.com>"
-, "main": "./lib/bemss.js"
+, "main": "./lib/boss.js"
 , "directories": {
     "lib": "./lib"
   }
 , "bin": {
-    "bemss": "./bin/bemss"
+    "boss": "./bin/boss"
   }
 , "dependencies" : {
     "coa": "*"

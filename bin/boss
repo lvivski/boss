@@ -30,6 +30,6 @@ require('coa').Cmd()
       .output()
       .end()
   .act(function(options) {
-    return require('../lib/bemss').run(options)
+    return require('../lib/boss').run(options)
   })
   .run()
