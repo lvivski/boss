@@ -4,7 +4,7 @@
 , "version": "0.0.1"
 , "author": "Yehor Lvivski <lvivski@gmail.com> (http://github.com/lvivski)"
 , "repository": {
-  , "type": "git"
+    "type": "git"
   , "url": "git://github.com/lvivski/boss.git"
   },
 , "main": "./lib/boss.js"
