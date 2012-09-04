@@ -121,7 +121,8 @@ ometa CSSParser {
 
     filterp = (seq('-filter') | seq('_filter') | seq('*filter') | seq('-ms-filter') | seq('filter')):t sc*:s0 -> CSSParser.concat([#property, [#ident, t]], s0),
 
-    progid = sc*:s0 seq('progid:DXImageTransform.Microsoft.'):x letter+:y '(' (m_string | m_comment | ~')' char)+:z ')' sc*:s1 -> CSSParser.concat([#progid], s0, [[#raw, x + y.join('') + '(' + z.join('') + ')']], s1),
+    progid = sc*:s0 seq('progid:DXImageTransform.Microsoft.'):x letter+:y '(' (m_string | m_comment | ~')' char)+:z ')' sc*:s1
+                -> CSSParser.concat([#progid], s0, [[#raw, x + y.join('') + '(' + z.join('') + ')']], s1),
 
     filterv = progid+:x -> [#filterv].concat(x),
 
