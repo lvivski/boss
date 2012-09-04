@@ -69,7 +69,7 @@ ometa BOSSTransformer <: CSSTransformer {
 
   variable = ['variable':t any:v] -> [t, v],
 
-  string = ['string':t :x :y] -> [t, y, x],
+  string = ['string':t :x :y] -> [t, x, y],
 
   value = ['value':t anys:x] -> [t].concat( x.filter(function (any) {return any[0] !== 's'}) )
 

@@ -8,7 +8,7 @@ ometa BOSSParser <: CSSParser {
 
   definition = sc* ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
 
-  string = m_string:x -> [#string, x[0], x.slice(1, -1)],
+  string = m_string:x -> [#string, x.slice(1, -1), x[0]],
 
   variable = '$' ident:x -> [#variable, x],
 
