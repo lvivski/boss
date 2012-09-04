@@ -19,5 +19,8 @@
   , "ometajs" : "*"
   , "q": "*"
   }
+, "scripts": {
+    "prepublish": "make"
+  }
 , "licenses" : [ { "type" : "MIT" } ]
 }
