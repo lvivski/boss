@@ -6,9 +6,9 @@
  style like a boss
  ```
 
-## BoSS
+## BOSS
 
-BoSS is the dynamic stylesheet language. It supports both regular CSS syntax and nested syntax.
+BOSS is the dynamic stylesheet language. It supports both regular CSS syntax and nested syntax.
 But the main feature is nested rules expanding according to [BEM](http://bem.github.com/bem-method/pages/beginning/beginning.en.html):
 * `&:mod(value)` becomes `_mod_value`
 * `&elem` becomes `__elem`
