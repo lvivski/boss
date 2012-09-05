@@ -71,6 +71,18 @@ ometa BOSSTransformer <: CSSTransformer {
 
   string = ['string':t :x :y] -> [t, x, y],
 
-  value = ['value':t anys:x] -> [t].concat( x.filter(function (any) {return any[0] !== 's'}) )
+  stylesheet = ['stylesheet':t anys:x] -> [t].concat( filter(x) ),
 
+  atrulers = ['atrulers':t anys:x] -> [t].concat( filter(x) ),
+
+  value = ['value':t anys:x] -> [t].concat( filter(x) ),
+
+  property = ['property':t anys:x] -> [t].concat( filter(x) ),
+
+  functionBody = ['functionBody':t anys:x] -> [t].concat( filter(x) )
+
+}
+
+var filter = function (arr) {
+  return arr.filter(function (any) { return any[0] !== 's' })
 }

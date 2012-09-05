@@ -109,6 +109,10 @@ ometa BOSSTranslator <: CSSTranslator {
 
   functionBody = ['functionBody' anys:x] -> createExpression(x, true),
 
+  atruler = ['atruler' any:x any:y any:z] -> new nodes.Atrule(x + y, z),
+
+  atrulers = ['atrulers' anys:x] -> new nodes.Block(x),
+
 }
 
 var createExpression = function (x, isArgs) {

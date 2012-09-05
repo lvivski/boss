@@ -4,9 +4,7 @@ ometa BOSSParser <: CSSParser {
 
   statement = definition | ruleset | atrule | assignment,
 
-  stylesheet = (cdo | cdc | statement)*:x -> CSSParser.concat([#stylesheet], x),
-
-  definition = sc* ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
+  definition = ident:x '(' functionBody:y ')' sc* block:z -> [#definition, x, y, z],
 
   string = m_string:x -> [#string, x.slice(1, -1), x[0]],
 
