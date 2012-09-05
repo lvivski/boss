@@ -1,8 +1,9 @@
 {
   "name": "boss"
 , "description": "BEM Oriented Style Sheets"
-, "version": "0.0.1"
+, "version": "0.0.1-1"
 , "author": "Yehor Lvivski <lvivski@gmail.com> (http://github.com/lvivski)"
+, "keywords": ["css", "parser", "style", "stylesheets", "bem", "boss", "bem-tools"]
 , "repository": {
     "type": "git"
   , "url": "git://github.com/lvivski/boss.git"
@@ -15,9 +16,9 @@
     "boss": "./bin/boss"
   }
 , "dependencies" : {
-    "coa": "*"
-  , "ometajs" : "*"
-  , "q": "*"
+    "coa": "0.3.x"
+  , "ometajs" : "~3.1.14"
+  , "q": "0.8.x"
   }
 , "scripts": {
     "prepublish": "make"
