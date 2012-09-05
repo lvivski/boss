@@ -77,7 +77,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   binary = ['binary' any:o any:x any:y] -> new nodes.BinOp(o, x, y),
 
-  unary = ['unary' any:o any:x] -> new nodes.Dimension(o + x, y),
+  unary = ['unary' any:o any:x] -> x.operate('*', new nodes.Dimension(o + 1)),
 
   variable = ['variable' any:x] -> x,
 
@@ -109,6 +109,8 @@ ometa BOSSTranslator <: CSSTranslator {
 
   functionBody = ['functionBody' anys:x] -> createExpression(x, true),
 
+  operator = ['operator' :x] -> new nodes.Literal(x),
+
   atruler = ['atruler' any:x any:y any:z] -> new nodes.Atrule(x + y, z),
 
   atrulers = ['atrulers' anys:x] -> new nodes.Block(x),
@@ -121,8 +123,7 @@ var createExpression = function (x, isArgs) {
       list;
 
   x.forEach(function (node) {
-    if (node === ' ') return;
-    if (node === ',') {
+    if (node.value === ',') {
       list = list || new nodes[ctor](true)
       list.push(expr)
       expr = new nodes.Expression
