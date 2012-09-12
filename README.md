@@ -108,6 +108,7 @@ Compression will remove:
 - unnecessary spaces
 
 Some sorthand declarations will also be compressed, ex:
+
 Input
 ```css
 .classname {
