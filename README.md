@@ -34,6 +34,7 @@ background-gradient(start, stop) {
 
 block {
   background-gradient: lighten(#000, 50%) 0%, darken(#fff, 30%) 100%;
+  font: 13px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif
   &:mod(value) {
     padding: 0px 2px + 10px
   }
@@ -41,17 +42,15 @@ block {
     background: url(some/image/url.png), #fff;
     border-radius: 10px 5px;
     &:elem-mod(value) {
-      color: darken(white, 50%);
+      color: darken(white, 50%)
     }
   }
   &:hover {
     color: red
   }
   sub-block {
-    margin: 1em + 10%;
-    &sub-elem {
-      color: slateblue
-    }
+    margin: 1em + 10% -2px;
+    color: slateblue
   }
 }
 ```
@@ -62,9 +61,10 @@ Output:
   background: -webkit-linear-gradient(#808080 0%, #b3b3b3 100%);
   background: -moz-linear-gradient(#808080 0%, #b3b3b3 100%);
   background: linear-gradient(#808080 0%, #b3b3b3 100%);
+  font: 13px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .block_mod_value {
-  padding: 0 12px;
+  padding: 0px 12px;
 }
 .block__elem {
   background: url('some/image/url.png'), #fff;
@@ -79,9 +79,7 @@ Output:
   color: #f00;
 }
 .block .sub-block {
-  margin: 1.1em;
-}
-.block .sub-block__sub-elem {
+  margin: 1.1em -2px;
   color: #6a5acd;
 }
 ```
@@ -101,6 +99,29 @@ Options:
   -i INPUT, --input=INPUT : Input file (default: stdin)
   -c, --compress : Compress output (default: false)
   -o OUTPUT, --output=OUTPUT : Output file (default: stdout)
+```
+
+### N.B.
+Compression will remove:
+- last semicolon in a block
+- units near zero values (if not a percentage)
+- unnecessary spaces
+
+Some sorthand declarations will also be compressed, ex:
+Input
+```css
+.classname {
+  margin: 5px 10px;
+  margin-top: 10px;
+  padding: 0px 10px 0
+}
+```
+Output (newlines added for visibility)
+```css
+.classname{
+margin:10px 10px 5px;
+padding:0 10px
+}
 ```
 
 ### Thanks
