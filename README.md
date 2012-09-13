@@ -124,6 +124,7 @@ margin:10px 10px 5px;
 padding:0 10px
 }
 ```
+Compressed declarations are: `margin`, `padding`, `border-width`, `border-radius`, `-webkit-border-radius`, `-moz-border-radius`, — and their long forms.
 
 ### Thanks
 
