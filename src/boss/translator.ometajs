@@ -61,7 +61,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   assignment = ['assignment' any:x any:y] -> new nodes.Ident(x.trim(), y),
 
-  clazz = ['clazz' any:x] -> new nodes.Literal('.' + x),
+  clazz = ['clazz' any:x] -> '.' + x,
 
   vhash = ['vhash' :x] -> new nodes.Color(x),
 
@@ -95,7 +95,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   declaration = ['declaration' any:x any:y] -> new nodes.Declaration(x, y),
 
-  simpleselector = ['simpleselector' anys:x] -> new nodes.Selector(x.join('')),
+  simpleselector = ['simpleselector' anys:x] -> new nodes.Selector(x),
 
   selector = ['selector' anys:x] -> x.filter(function (selector) { return selector !== ',' }),
 
