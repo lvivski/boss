@@ -97,33 +97,22 @@ Options:
   -h, --help : Help
   -v, --version : Version
   -i INPUT, --input=INPUT : Input file (default: stdin)
-  -c, --compress : Compress output (default: false)
+  -c COMPRESS, --compress=COMPRESS : Compression level (default: 0)
   -o OUTPUT, --output=OUTPUT : Output file (default: stdout)
+  -m MIXIN, --mixin=MIXIN : Mixin file
 ```
 
 ### N.B.
-Compression will remove:
-- last semicolon in a block
-- units near zero values (if not a percentage)
-- unnecessary spaces
+There are 6 levels of compression now:
+  1. remove units near zero values (if not a percentage) and a zero in `0.n` values
+  2. compress sizes declaration, `margin: 0 10px 0 10px` will become `margin: 0 10px`
+  3. compress long form of sizes shorthands `*-{top,right,bottom,left}`, etc
+  4. remove newlines after comma in selector and last semicolon in a block
+  5. remove all newlines and unnecessary spaces
+  6. minify classnames (experimental)
 
-Some sorthand declarations will also be compressed, ex:
+Compression levels are accumulative, so level 3 will also have level 2 and 1 compressions
 
-Input
-```css
-.classname {
-  margin: 5px 10px;
-  margin-top: 10px;
-  padding: 0px 10px 0
-}
-```
-Output (newlines added for visibility)
-```css
-.classname{
-margin:10px 10px 5px;
-padding:0 10px
-}
-```
 Compressed declarations are: `margin`, `padding`, `border-width`, `border-radius`, `-webkit-border-radius`, `-moz-border-radius`, — and their long forms.
 
 ### Thanks
