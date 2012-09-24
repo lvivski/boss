@@ -115,6 +115,8 @@ ometa BOSSTranslator <: CSSTranslator {
 
   atrulers = ['atrulers' anys:x] -> new nodes.Block(x),
 
+  atrules = ['atrules' anys:x] -> new nodes.Atrule(x.join('')),
+
 }
 
 var createExpression = function (x, isArgs) {
