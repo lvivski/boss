@@ -67,10 +67,10 @@ Output:
   padding: 0px 12px;
 }
 .block__elem {
-  background: url('some/image/url.png'), #fff;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  background: url(some/image/url.png), #fff;
+  -webkit-border-radius: 10px 5px;
+  -moz-border-radius: 10px 5px;
+  border-radius: 10px 5px;
 }
 .block__elem_elem-mod_value {
   color: #808080;

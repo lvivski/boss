@@ -132,13 +132,13 @@ ometa BOSSTranslator <: CSSTranslator {
 var createExpression = function (x, isArgs) {
   var ctor = isArgs ? 'Arguments' : 'Expression',
       expr = new nodes[ctor],
-      list;
+      list = isArgs ? new nodes[ctor](true) : undefined;
 
   x.forEach(function (node) {
     if (node.value === ',') {
-      list = list || new nodes[ctor](true)
-      list.push(expr)
-      expr = new nodes.Expression
+      list = list || new nodes[ctor](true);
+      list.push(expr);
+      expr = new nodes.Expression;
       return;
     }
     expr.push(node);
