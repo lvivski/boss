@@ -77,7 +77,11 @@ ometa BOSSTransformer <: CSSTransformer {
 
   value = ['value':t anys:x] -> [t].concat( filter(x) ),
 
+  important = ['important':t] -> [t],
+
   property = ['property':t anys:x] -> [t].concat( filter(x) ),
+
+  progid = ['progid':t anys:x] -> [t].concat( filter(x) ),
 
   functionBody = ['functionBody':t anys:x] -> [t].concat( filter(x) )
 

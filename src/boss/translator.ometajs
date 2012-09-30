@@ -85,7 +85,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   string = ['string' :x :y] -> new nodes.String(x, y),
 
-  raw = ['raw' :x] -> new nodes.String(x),
+  raw = ['raw' :x] -> new nodes.Literal(x),
 
   uri = ['uri' any:x] -> new nodes.Call('url', new nodes.Arguments(false, [x])),
 
@@ -93,7 +93,7 @@ ometa BOSSTranslator <: CSSTranslator {
 
   block = ['block' anys:x] -> new nodes.Block(x),
 
-  declaration = ['declaration' any:x any:y] -> new nodes.Declaration(x, y),
+  declaration = ['declaration' any:p any:v] -> new nodes.Declaration(p, v),
 
   simpleselector = ['simpleselector' anys:x] -> new nodes.Selector(x),
 
@@ -103,7 +103,9 @@ ometa BOSSTranslator <: CSSTranslator {
 
   ident = ['ident' :x] -> new nodes.Ident(x),
 
-  pseudoc = ['pseudoc' any:x] -> (':' + x),
+  pseudoe = ['pseudoe' any:x] -> '::' + x,
+
+  pseudoc = ['pseudoc' any:x] -> ':' + x,
 
   value = ['value' anys:x] -> createExpression(x),
 
@@ -111,11 +113,19 @@ ometa BOSSTranslator <: CSSTranslator {
 
   operator = ['operator' :x] -> new nodes.Literal(x),
 
+  important = ['important'] -> new nodes.Literal('!important'),
+
   atruler = ['atruler' any:x any:y any:z] -> new nodes.Atrule(x + y, z),
 
   atrulers = ['atrulers' anys:x] -> new nodes.Block(x),
 
   atrules = ['atrules' anys:x] -> new nodes.Atrule(x.join('')),
+
+  progid = ['progid' any:x] -> x,
+
+  filter = ['filter' any:p any:v] -> new nodes.Declaration(p, v),
+
+  filterv = ['filterv' any:x] -> x,
 
 }
 
