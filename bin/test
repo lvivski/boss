@@ -1,5 +1,36 @@
 #!/usr/bin/env node
 
+/* Terminal Colors
+
+\033[MODIFICATOR;COLORm
+
+COLORS
+
+0        - Reset
+
+30       - Black
+31       - Red
+32       - Green
+33       - Yellow
+34       - Blue
+35       - Purple
+36       - Cyan
+37       - White
+
+10+COLOR - Background
+
+60+COLOR - High Intensity
+
+70+COLOR - High Intensity backgrounds
+
+MODIFICATORS
+
+0        - Regular
+1        - Bold
+4        - Underline
+
+*/
+
 var fs = require('fs')
   , parse = require('../lib/boss.js').parse
   , Env = require('../lib/env.js')
@@ -8,6 +39,7 @@ var fs = require('fs')
   , ok = 0
   , total = 0
   , files = {}
+  , failed = []
   , name, src, res, env, b
 
 list.forEach(function(path) {
@@ -15,11 +47,11 @@ list.forEach(function(path) {
     , name, ext
 
   if (i !== -1) {
-      ext = path.substring(i + 1)
-      name = path.substring(0, i)
-      if (!(name in files))
-        files[name] = {}
-      files[name][ext] = true
+    ext = path.substring(i + 1)
+    name = path.substring(0, i)
+    if (!(name in files))
+      files[name] = {}
+    files[name][ext] = true
   }
 })
 
@@ -31,13 +63,39 @@ for (name in files) {
     res = (b = parse(src).eval(env).toString(env).trim()) == readFile(name + '.css').trim()
     res && ok++
     if (!res) {
-      console.log(b)
-      console.log('FAIL: ' + name)
+      out('\033[31m-\033[0m')
+      failed.push(name)
+    } else {
+      out('\033[32m.\033[0m')
     }
   }
 }
 
-console.log('Total: ' + total + '. Ok: ' + ok + '. Fail: ' + (total - ok))
+process.stdout.write('\n\n')
+
+if (!failed.length) {
+  out('\033[32m✔ ')
+} else if (failed.length / total <= 0.1) { // < 10% failed
+  out('\033[33m✖ ')
+} else {
+  out('\033[31m✖ ')
+}
+
+out(total + ' tests completed\033[0m')
+
+if (failed.length) {
+  out(' \033[31m(' + failed.length + ' failed)\n')
+  failed.forEach(function(test){
+    out('  - ' + test + '\n')
+  })
+  out('\n')
+} else {
+  out('\n\n')
+}
+
+function out(str) {
+  process.stdout.write(str)
+}
 
 function readFile(path) {
     return fs.readFileSync(dir + '/' + path).toString();
