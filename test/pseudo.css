@@ -1,0 +1,3 @@
+a:nth-child(-n+1):not(:last-child):after {
+  color: #f00;
+}

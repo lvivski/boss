@@ -1,0 +1,25 @@
+.block {
+  background: -webkit-linear-gradient(#808080 0%, #b3b3b3 100%);
+  background: -moz-linear-gradient(#808080 0%, #b3b3b3 100%);
+  background: linear-gradient(#808080 0%, #b3b3b3 100%);
+  font: 13px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.block_mod_value {
+  padding: 0px 12px;
+}
+.block__elem {
+  background: url(some/image/url.png), #fff;
+  -webkit-border-radius: 10px 5px;
+  -moz-border-radius: 10px 5px;
+  border-radius: 10px 5px;
+}
+.block__elem_elem-mod_value {
+  color: #808080;
+}
+.block:hover {
+  color: #f00;
+}
+.block .sub-block {
+  margin: 1.1em -2px;
+  color: #6a5acd;
+}

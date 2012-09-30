@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var fs = require('fs')
+  , parse = require('../lib/boss.js').parse
+  , Env = require('../lib/env.js')
+  , dir = __dirname + '/../test'
+  , list = fs.readdirSync(dir)
+  , ok = 0
+  , total = 0
+  , files = {}
+  , name, src, res, env, b
+
+list.forEach(function(path) {
+  var i = path.lastIndexOf('.')
+    , name, ext
+
+  if (i !== -1) {
+      ext = path.substring(i + 1)
+      name = path.substring(0, i)
+      if (!(name in files))
+        files[name] = {}
+      files[name][ext] = true
+  }
+})
+
+for (name in files) {
+  if (files[name].boss) {
+    env = new Env
+    src = readFile(name + '.boss')
+    total++
+    res = (b = parse(src).eval(env).toString(env).trim()) == readFile(name + '.css').trim()
+    res && ok++
+    if (!res) {
+      console.log(b)
+      console.log('FAIL: ' + name)
+    }
+  }
+}
+
+console.log('Total: ' + total + '. Ok: ' + ok + '. Fail: ' + (total - ok))
+
+function readFile(path) {
+    return fs.readFileSync(dir + '/' + path).toString();
+}

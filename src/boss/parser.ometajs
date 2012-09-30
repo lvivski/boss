@@ -41,5 +41,11 @@ ometa BOSSParser <: CSSParser {
   uri = seq('url(') sc* string:x sc* ')' -> CSSParser.concat([#uri], [x])
         | seq('url(') sc* (~')' ~m_w char)*:x sc* ')' -> CSSParser.concat([#uri], [[#raw, x.join('')]]),
 
+  pseudoc = ':' (pseudof | ident):x -> [#pseudoc, x],
+
+  pseudof = ident:x '(' pseudofBody:y ')' -> [#funktion, x, y],
+
+  pseudofBody = (simpleselector)*:x -> [#functionBody].concat(x),
+
   any = braces | string | expression | uri | functionExpression | funktion | ident | variable
 }
