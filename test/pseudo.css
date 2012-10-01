@@ -1,3 +1,10 @@
-a:nth-child(-n+1):not(:last-child):after {
+a:nth-child(-n+1):not(:last-child):hover,
+a:not(.b-link):hover,
+.b-menu_type_vertical a:hover {
   color: #f00;
+}
+::-webkit-scrollbar-track-piece:start,
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-button:horizontal:decrement:hover {
+  background: transparent;
 }

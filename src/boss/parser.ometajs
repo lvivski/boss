@@ -35,8 +35,8 @@ ometa BOSSParser <: CSSParser {
 
   blockdecl = sc* (filter | declaration):x decldelim? sc* -> [x]
             | sc* ruleset:x sc* -> [x]
-            | sc* decldelim sc*
-            | sc+,
+            | sc* decldelim sc* -> []
+            | sc+:s0 -> [],
 
   uri = seq('url(') sc* string:x sc* ')' -> CSSParser.concat([#uri], [x])
         | seq('url(') sc* (~')' ~m_w char)*:x sc* ')' -> CSSParser.concat([#uri], [[#raw, x.join('')]]),
