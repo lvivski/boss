@@ -117,6 +117,7 @@ Compressed declarations are: `margin`, `padding`, `border-width`, `border-radius
 
 ### Thanks
 
+Sergey Kryzhanovsky ([afelix](http://github.com/afelix)) for initial parser implementation
 Kristoffer Walker ([kixxauth](http://github.com/kixxauth)) for providing npm registry name
 
 ## License
