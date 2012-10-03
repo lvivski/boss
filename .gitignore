@@ -1,3 +1,2 @@
 /node_modules
-/lib/boss
-/lib/css
+/lib/parser.js

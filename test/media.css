@@ -1,5 +1,6 @@
 @media all and (min-width:500px) {
   body {
     font-size: 1.5em;
+    margin: 1px;
   }
 }
