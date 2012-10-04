@@ -8,7 +8,7 @@
   padding: 0px 12px;
 }
 .block__elem {
-  background: url(some/image/url.png), #fff;
+  background: url(some/image/url.png), #ffffff;
   -webkit-border-radius: 10px 5px;
   -moz-border-radius: 10px 5px;
   border-radius: 10px 5px;
@@ -17,7 +17,7 @@
   color: #808080;
 }
 .block:hover {
-  color: #f00;
+  color: #ff0000;
 }
 .block .sub-block {
   margin: 1.1em -2px;

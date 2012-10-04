@@ -1,7 +1,7 @@
 a:nth-child(-n+1):not(:last-child):hover,
 a:not(.b-link):hover,
 .b-menu_type_vertical a:hover {
-  color: #f00;
+  color: #ff0000;
 }
 ::-webkit-scrollbar-track-piece:start,
 ::-webkit-scrollbar-thumb:window-inactive,
