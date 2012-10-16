@@ -4,7 +4,7 @@
 | . \| | |\_  \_  \
 |___/\___//___/___/
  style like a boss
- ```
+```
 
 ## BOSS
 
@@ -97,9 +97,9 @@ Options:
   -h, --help : Help
   -v, --version : Version
   -i INPUT, --input=INPUT : Input file (default: stdin)
-  -c COMPRESS, --compress=COMPRESS : Compression level (default: 0)
+  -c LEVEL, --compress=LEVEL : Compression level (default: 0)
   -o OUTPUT, --output=OUTPUT : Output file (default: stdout)
-  -m MIXIN, --mixin=MIXIN : Mixin file
+  -p FILE, --partial=FILE : Partial file
 ```
 
 ### N.B.
