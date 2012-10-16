@@ -1,4 +1,4 @@
-button-color = saturate(#401010, 10);
+button-color = #000;
 
 border-radius(radius) {
   -webkit-border-radius: radius;
@@ -19,10 +19,11 @@ block {
     padding: 0px 2px + 10px
   }
   &elem {
+    $button-color: #fff;
     background: url(some/image/url.png), #fff;
     border-radius: 10px 5px;
     &:elem-mod(value) {
-      color: darken(white, 50%)
+      color: button-color
     }
   }
   &:hover {
