@@ -2,7 +2,7 @@
   "name": "boss"
 , "preferGlobal": "true"
 , "description": "BEM Oriented Style Sheets"
-, "version": "0.0.2-2"
+, "version": "0.0.2-3"
 , "author": "Yehor Lvivski <lvivski@gmail.com> (http://github.com/lvivski)"
 , "keywords": ["css", "parser", "style", "stylesheets", "bem", "boss", "bem-tools"]
 , "repository": {
