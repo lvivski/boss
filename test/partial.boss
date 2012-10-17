@@ -1,0 +1,13 @@
+@import 'subpartial.boss';
+
+border-radius(radius) {
+  -webkit-border-radius: radius;
+  -moz-border-radius: radius;
+  border-radius: radius;
+}
+
+background-gradient(start, stop) {
+  background: -webkit-linear-gradient(start, stop);
+  background: -moz-linear-gradient(start, stop);
+  background: linear-gradient(start, stop);
+}

@@ -57,7 +57,11 @@ list.forEach(function(path) {
 
 for (name in files) {
   if (files[name].boss) {
-    env = new Env
+    env = new Env({
+      input: {
+        path: dir + '/' + name + '.boss'
+      }
+    })
     src = readFile(name + '.boss')
     total++
     res = (b = parse(src).eval(env).toString(env).trim()) == readFile(name + '.css').trim()

@@ -1,16 +1,4 @@
-button-color = #000;
-
-border-radius(radius) {
-  -webkit-border-radius: radius;
-  -moz-border-radius: radius;
-  border-radius: radius;
-}
-
-background-gradient(start, stop) {
-  background: -webkit-linear-gradient(start, stop);
-  background: -moz-linear-gradient(start, stop);
-  background: linear-gradient(start, stop);
-}
+@import 'partial.boss';
 
 block {
   background-gradient: lighten(#000, 50%) 0%, darken(#fff, 30%) 100%;
@@ -19,10 +7,10 @@ block {
     padding: 0px 2px + 10px
   }
   &elem {
-    $button-color: #fff;
-    background: url(some/image/url.png), #fff;
+    background: url(some/image/url.png), button-color;
     border-radius: 10px 5px;
     &:elem-mod(value) {
+      $button-color: #000;
       color: button-color
     }
   }
