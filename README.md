@@ -1,3 +1,9 @@
+# DEPRECATED
+
+use [Styl](https://github.com/visionmedia/styl) instead
+
+------------
+
 ```
  ___  ___  ____ ___
 | . \/   \/  _/  _/
