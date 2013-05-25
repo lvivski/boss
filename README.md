@@ -1,6 +1,6 @@
 # DEPRECATED
 
-use [Styl](https://github.com/visionmedia/styl) instead
+use [Gloss](https://github.com/lvivski/gloss) instead
 
 ------------
 
